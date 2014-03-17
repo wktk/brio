@@ -49,7 +49,7 @@ skips_pre
 command :authorize do |c|
   c.action do |global_options,options,args|
 
-    if client.config.empty?
+    if client.config['token'].to_s.empty?
       say "Welcome! Before you can use *brio* you need to authorize it with app.net"
       ask "Press [Enter] to open the app.net site."
       say ""
@@ -281,7 +281,7 @@ pre do |global,command,options,args|
   # chosen command
   # Use skips_pre before a command to skip this block
   # on that command only
-  exit_now!('You need to authorize with app.net. Run `brio authorize` to do so.') if client.config.empty? 
+  exit_now!('You need to authorize with app.net. Run `brio authorize` to do so.') if client.config['token'].to_s.empty?
   if global[:format].nil?
     if STDOUT.tty? 
       global[:format] = 'pretty'
