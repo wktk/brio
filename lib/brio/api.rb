@@ -13,9 +13,16 @@ module Brio
     RESPONSE_TYPE = 'token'
 
 
-    
+    def client_id
+      config['client_id'] || CLIENT_ID
+    end
+
+    def redirect_uri
+      client_id == CLIENT_ID ? REDIRECT_URI : ''
+    end
+
     def oauth_url
-      "#{protocol}://#{oauth_host}/oauth/authenticate?client_id=#{CLIENT_ID}&response_type=#{RESPONSE_TYPE}&scope=#{SCOPE}&redirect_uri=#{REDIRECT_URI}"
+      "#{protocol}://#{oauth_host}/oauth/authenticate?client_id=#{client_id}&response_type=#{RESPONSE_TYPE}&scope=#{SCOPE}&redirect_uri=#{redirect_uri}"
     end
 
     # POSTS
