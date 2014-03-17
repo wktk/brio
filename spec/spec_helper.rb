@@ -10,7 +10,7 @@ require 'fileutils'
 RSpec.configure do |config|
   config.before(:all) do
     @old_home = ENV['HOME']
-    ENV['HOME'] = project_path + "/tmp/" 
+    ENV['HOME'] = tmp_dir
   end
 
   config.after(:all) do
@@ -22,6 +22,7 @@ end
 
 
 def create_test_rc_file
+  Dir.mkdir(tmp_dir) unless Dir.exist?(tmp_dir)
   FileUtils.cp fixture("brio.rc"), test_rc_file
 end
 
@@ -34,7 +35,11 @@ def project_path
 end
 
 def test_rc_file
-  project_path + "/tmp/.brio.rc"
+  tmp_dir + "/.brio.rc"
+end
+
+def tmp_dir
+  project_path + "/tmp" 
 end
 
 def fixture_path
