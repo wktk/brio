@@ -51,7 +51,7 @@ module Brio
 
     private 
     def add_oauth_header
-      @conn.authorization :bearer, config['token']
+      @conn.authorization :bearer, config['token'] unless config['token'].to_s.empty?
     end
 
     # USERS
